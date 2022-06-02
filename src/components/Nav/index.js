@@ -1,13 +1,14 @@
 import React from "react";
 import { capitalizeFirstLetter } from "../../utils/helpers";
 
-function Nav(props) {
-  const {
-    categories = [],
-    setCurrentCategory,
-    currentCategory,
-  } = props;
+function Nav() {
 
+  const  categories = [
+    { name: 'commercial', description: 'Photos of grocery stores, food trucks, and other commercial projects' },
+    { name: 'portraits', description: 'Portraits of people in my life' },
+    { name: 'food', description: 'Delicious delicacies' },
+    { name: 'landscape', description: 'Fields, farmhouses, waterfalls, and the beauty of nature' }
+  ];
 
   const handleClick = (item) => {
     console.log(item);
@@ -24,7 +25,7 @@ function Nav(props) {
       <nav>
         <ul className="flex-row">
           <li className="mx-2">
-            <a data-testid="about" href="#about">
+            <a data-testid="about" href="#about" onClick={() => handleClick("About")}>
               About me
             </a>
           </li>
@@ -33,22 +34,15 @@ function Nav(props) {
               Contact
             </span>
           </li>
-          {categories.map((category) => (
-            <li
-              className={`mx-1 ${
-                currentCategory.name === category.name
-                }`}
-              key={category.name}
-            >
-              <span
-                onClick={() => {
-                  setCurrentCategory(category);
-                }}
-              >
-                {capitalizeFirstLetter(category.name)}
-              </span>
-            </li>
-          ))}
+          {
+            categories.map((category) => (
+              <li className="mx-1" key={category.name} >
+                <span onClick={() => { handleClick(category.name); }}>
+                 {capitalizeFirstLetter(category.name)}
+                </span>
+              </li>
+            ))
+          }
         </ul>
       </nav>
     </header>
